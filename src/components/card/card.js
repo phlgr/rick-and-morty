@@ -8,17 +8,22 @@ export function createCard({ imgSrc, name, species, origin }) {
         className: "card__portrait",
         src: imgSrc,
       }),
-      createElement("h2", {
-        className: "card__name",
-        innerText: name,
-      }),
-      createElement("p", {
-        className: "card__species",
-        innerText: species,
-      }),
-      createElement("p", {
-        className: "card__origin",
-        innerText: origin,
+      createElement("div", {
+        className: "card__info",
+        children: [
+          createElement("h2", {
+            className: "info__name",
+            innerText: name,
+          }),
+          createElement("p", {
+            className: "info__species",
+            innerText: species,
+          }),
+          createElement("p", {
+            className: "info__origin",
+            innerText: origin,
+          }),
+        ],
       }),
     ],
   });
