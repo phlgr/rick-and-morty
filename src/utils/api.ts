@@ -23,7 +23,7 @@ export type APICharacters = {
   info: {
     count: number;
     pages: number;
-    next: string;
+    next: string | null;
     prev: string | null;
   };
   results: APICharacter[];
