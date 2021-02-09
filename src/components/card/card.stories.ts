@@ -1,6 +1,7 @@
 import "./card.css";
 import { createCard } from "./card";
 import { createElement } from "../../utils/createElement";
+import { getCharacter, getCharacters } from "../../utils/api";
 
 export default {
   title: "Components/Card",
@@ -57,3 +58,30 @@ export const Multiple = () => {
 
   return container;
 };
+
+export const CharacterFromAPI = (_args, { loaded: { character } }) => {
+  return createCard(character);
+};
+
+// https://storybook.js.org/docs/react/writing-stories/loaders#gatsby-focus-wrapper
+CharacterFromAPI.loaders = [
+  async () => ({
+    character: await getCharacter(2),
+  }),
+];
+
+export const CharactersFromAPI = (_args, { loaded: { characters } }) => {
+  const container = createElement("div", {
+    className: "container",
+    childs: characters.map((character) => createCard(character)),
+  });
+
+  return container;
+};
+
+// https://storybook.js.org/docs/react/writing-stories/loaders#gatsby-focus-wrapper
+CharactersFromAPI.loaders = [
+  async () => ({
+    characters: await getCharacters(),
+  }),
+];
