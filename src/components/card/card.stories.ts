@@ -1,7 +1,7 @@
 import "./card.css";
 import { createCard } from "./card";
 import { createElement } from "../../utils/createElement";
-import { getCharacter, getCharacters } from "../../utils/api";
+import { Character, getCharacter, getCharacters } from "../../utils/api";
 
 export default {
   title: "Components/Card",
@@ -27,7 +27,7 @@ export const Morty = () =>
   });
 
 export const Multiple = () => {
-  const characters = [
+  const characters: Character[] = [
     {
       imgSrc: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
       name: "Morty Smith",
@@ -59,7 +59,15 @@ export const Multiple = () => {
   return container;
 };
 
-export const CharacterFromAPI = (args, { loaded: { character } }) => {
+type CharacterFromAPIProps = {
+  loaded: {
+    character: Character;
+  };
+};
+export const CharacterFromAPI = (
+  args,
+  { loaded: { character } }: CharacterFromAPIProps
+) => {
   return createCard(character);
 };
 
@@ -69,7 +77,15 @@ CharacterFromAPI.loaders = [
   }),
 ];
 
-export const CharactersFromAPI = (args, { loaded: { characters } }) => {
+type CharactersFromAPIProps = {
+  loaded: {
+    characters: Character[];
+  };
+};
+export const CharactersFromAPI = (
+  args,
+  { loaded: { characters } }: CharactersFromAPIProps
+) => {
   const container = createElement("div", {
     className: "container",
     childs: characters.map((character) => createCard(character)),
