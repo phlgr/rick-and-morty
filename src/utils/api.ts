@@ -40,7 +40,15 @@ export type Character = {
 };
 
 function convertToCharacter(apiCharacter: APICharacter): Character {
-  // todo
+  return {
+    imgSrc: apiCharacter.image,
+    name: apiCharacter.name,
+    status: apiCharacter.status,
+    species: apiCharacter.species,
+    origin: {
+      name: apiCharacter.origin.name,
+    },
+  };
 }
 
 export async function getCharacter(id: number) {
