@@ -33,6 +33,18 @@ export async function getCharacter(id: number) {
   const response = await fetch(
     `https://rickandmortyapi.com/api/character/${id}`
   );
+  if (!response.ok) {
+    const result = await response.json();
+    return {
+      imgSrc: "",
+      name: result.error,
+      status: "Dead",
+      species: "Human",
+      origin: {
+        name: "Internet",
+      },
+    };
+  }
   const result = (await response.json()) as APICharacter;
   const character = {
     imgSrc: result.image,
@@ -46,6 +58,9 @@ export async function getCharacter(id: number) {
 
 export async function getCharacters() {
   const response = await fetch(`https://rickandmortyapi.com/api/character/`);
+  if (!response.ok) {
+    return [];
+  }
   const result = (await response.json()) as APICharacters;
   const characters = result.results.map((apiCharacter) => ({
     imgSrc: apiCharacter.image,
