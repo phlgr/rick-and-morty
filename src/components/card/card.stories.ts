@@ -98,3 +98,25 @@ CharactersFromAPI.loaders = [
     characters: await getCharacters(),
   }),
 ];
+
+export const RandomCharacter = () => {
+  const randomButton = createElement("button", {
+    innerText: "Load random character",
+    onclick: async () => {
+      // Verify each step (alert, console.log)
+      // 1) generate random character id
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#getting_a_random_number_between_two_values
+      // 2) getCharacter from API
+      // 3) create card
+      // 4) append card
+      // 5) make sure to only display one character
+      // 6) feel awesome 🐱‍👤
+    },
+  });
+
+  const container = createElement("div", {
+    className: "container",
+    childs: [randomButton],
+  });
+  return container;
+};
