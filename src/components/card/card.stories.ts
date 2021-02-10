@@ -105,9 +105,12 @@ export const RandomCharacter = () => {
     onclick: async () => {
       // Verify each step (alert, console.log)
       // 1) generate random character id
+      const randomCharacterId = Math.floor(Math.random() * 670) + 1;
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#getting_a_random_number_between_two_values
       // 2) getCharacter from API
+      const randomCharacter = await getCharacter(randomCharacterId);
       // 3) create card
+      const randomCharacterCard = createCard(randomCharacter);
       // 4) append card
       // 5) make sure to only display one character
       // 6) feel awesome 🐱‍👤
