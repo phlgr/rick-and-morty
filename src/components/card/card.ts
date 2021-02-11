@@ -46,7 +46,7 @@ function createCardBack(character: Character) {
 }
 
 export function createCard(character: Character) {
-  return createElement("article", {
+  const card = createElement("article", {
     className: "card",
     childs: [
       createElement("div", {
@@ -54,5 +54,9 @@ export function createCard(character: Character) {
         childs: [createCardFront(character), createCardBack(character)],
       }),
     ],
+    onclick: () => {
+      card.classList.toggle("card-show-back");
+    },
   });
+  return card;
 }

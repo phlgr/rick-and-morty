@@ -12,7 +12,7 @@
   background: #3c3e44;
 }
 
-.card:hover .card__inner {
+.card-show-back .card__inner {
   transform: rotateY(180deg);
 }
 
@@ -32,11 +32,11 @@
   padding: 1em;
 }
 
-.card:hover .card__front {
+.card-show-back .card__front {
   opacity: 0;
 }
 
-.card:hover .card__back {
+.card-show-back .card__back {
   opacity: 1;
 }
 .card__portrait {
