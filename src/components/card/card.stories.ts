@@ -1,7 +1,7 @@
 import "./card.css";
 import { createCard } from "./card";
 import { createElement } from "../../utils/createElement";
-import { getCharacter, getCharacters } from "../../utils/api";
+import { Character, getCharacter, getCharacters } from "../../utils/api";
 
 export default {
   title: "Components/Card",
@@ -27,7 +27,7 @@ export const Morty = () =>
   });
 
 export const Multiple = () => {
-  const characters = [
+  const characters: Character[] = [
     {
       imgSrc: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
       name: "Morty Smith",
@@ -59,7 +59,15 @@ export const Multiple = () => {
   return container;
 };
 
-export const CharacterFromAPI = (args, { loaded: { character } }) => {
+type CharacterFromAPIProps = {
+  loaded: {
+    character: Character;
+  };
+};
+export const CharacterFromAPI = (
+  args,
+  { loaded: { character } }: CharacterFromAPIProps
+) => {
   return createCard(character);
 };
 
@@ -69,7 +77,15 @@ CharacterFromAPI.loaders = [
   }),
 ];
 
-export const CharactersFromAPI = (args, { loaded: { characters } }) => {
+type CharactersFromAPIProps = {
+  loaded: {
+    characters: Character[];
+  };
+};
+export const CharactersFromAPI = (
+  args,
+  { loaded: { characters } }: CharactersFromAPIProps
+) => {
   const container = createElement("div", {
     className: "container",
     childs: characters.map((character) => createCard(character)),
@@ -82,3 +98,32 @@ CharactersFromAPI.loaders = [
     characters: await getCharacters(),
   }),
 ];
+
+export const RandomCharacter = () => {
+  const randomButton = createElement("button", {
+    innerText: "Load random character",
+    onclick: async () => {
+      // Verify each step (alert, console.log)
+      // generate random character id
+      const randomCharacterId = Math.floor(Math.random() * 670) + 1;
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random#getting_a_random_number_between_two_values
+      // getCharacter from API
+      const randomCharacter = await getCharacter(randomCharacterId);
+      // create card
+      const randomCharacterCard = createCard(randomCharacter);
+      // make sure to only display one character
+      if (container.childNodes.length > 1) {
+        container.removeChild(container.lastChild);
+      }
+      // append card
+      container.append(randomCharacterCard);
+      // feel awesome 🐱‍👤
+    },
+  });
+
+  const container = createElement("div", {
+    className: "container",
+    childs: [randomButton],
+  });
+  return container;
+};
