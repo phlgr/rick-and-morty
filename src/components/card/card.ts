@@ -1,15 +1,9 @@
 import { Character } from "../../utils/api";
 import { createElement } from "../../utils/createElement";
 
-export function createCard({
-  imgSrc,
-  name,
-  status,
-  species,
-  origin,
-}: Character) {
-  return createElement("article", {
-    className: "card",
+function createCardFront({ imgSrc, name, species, origin }: Character) {
+  return createElement("div", {
+    className: "card__front",
     childs: [
       createElement("img", {
         className: "card__portrait",
@@ -38,4 +32,31 @@ export function createCard({
       }),
     ],
   });
+}
+
+function createCardBack(character: Character) {
+  return createElement("div", {
+    className: "card__back",
+    childs: [
+      createElement("p", {
+        innerText: "location",
+      }),
+    ],
+  });
+}
+
+export function createCard(character: Character) {
+  const card = createElement("article", {
+    className: "card",
+    childs: [
+      createElement("div", {
+        className: "card__inner",
+        childs: [createCardFront(character), createCardBack(character)],
+      }),
+    ],
+    onclick: () => {
+      card.classList.toggle("card-show-back");
+    },
+  });
+  return card;
 }
